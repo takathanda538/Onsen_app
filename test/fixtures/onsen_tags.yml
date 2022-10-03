@@ -1,10 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  customer: one
-  post: one
+  oncen: one
+  tag: one
 
 two:
-  customer: two
-  post: two
-
+  oncen: two
+  tag: two

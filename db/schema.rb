@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2022_10_03_052737) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "customer_id", null: false
+
     t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -49,9 +50,11 @@ ActiveRecord::Schema.define(version: 2022_10_03_052737) do
     t.text "comment"
     t.integer "user_id"
     t.integer "post_id"
+
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
+
 
   create_table "posts", force: :cascade do |t|
     t.integer "customer_id", null: false
@@ -63,11 +66,14 @@ ActiveRecord::Schema.define(version: 2022_10_03_052737) do
   end
 
   create_table "relationships", force: :cascade do |t|
+
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "likes", "customers"
+
   add_foreign_key "likes", "posts"
   add_foreign_key "posts", "customers"
+
 end
