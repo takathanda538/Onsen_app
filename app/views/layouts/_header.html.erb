@@ -1,0 +1,58 @@
+<header>
+  <nav class="navbar navbar-expand-sm">
+    <% if customer_signed_in? %>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto h4">
+          <li class="nav-item">
+            <%= link_to "マイページ" ,customer_path(current_customer), class: 'nav-link'%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "投稿一覧",customer_path(current_customer), class: 'nav-link'  %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "投稿者一覧",root_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "投稿",new_post_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to  "ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    <% elsif admin_signed_in? %>
+      <ul class="navbar-nav ml-auto h4">
+        <li class="nav-item">
+          <%= link_to "商品一覧", root_path, class: 'nav-link'  %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "会員一覧", root_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "注文履歴一覧", admin_root_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ジャンル一覧",root_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link' %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="navbar-nav ml-auto h4">
+        <li class="nav-item">
+          <%= link_to "About",root_path, class: 'nav-link'  %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "商品一覧",root_path, class: 'nav-link'  %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "新規登録",new_customer_registration_path, class: 'nav-link'%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ログイン",new_customer_session_path, class: 'nav-link' %>
+        </li>
+      </ul>
+    <% end %>
+  </nav>
+</header>
