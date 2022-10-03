@@ -2,9 +2,10 @@
 
 one:
   customer: one
-  post: one
+  name: MyString
+  body: MyText
 
 two:
   customer: two
-  post: two
-
+  name: MyString
+  body: MyText
