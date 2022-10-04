@@ -15,16 +15,19 @@ class Public::PostsController < ApplicationController
   end
 
   def index
+    @posts = Post.all
   end
 
   def show
+    @post = Post.find(params[:id])
+    @customer = @post.customer
   end
 
   def edit
   end
 
   def post_params
-    params.require(:post).permit(:name, :body)
+    params.require(:post).permit(:name, :body, :post_images)
   end
 
 end
