@@ -1,2 +1,9 @@
 <h1>Public::Customers#show</h1>
 <p>Find me in app/views/public/customers/show.html.erb</p>
+<h1>User name</h1>
+<%= image_tag @customer.get_profile_image(100,100) %>
+<%= @customer.name %>
+<% @posts.each do |post| %>
+  <h5><%= post.name %></h5>
+  <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-success" %>
+<% end %>
