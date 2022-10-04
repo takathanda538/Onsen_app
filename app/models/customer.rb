@@ -6,6 +6,8 @@ class Customer < ApplicationRecord
 
   has_many :post_comments, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :like_posts, through: :likes, source: :post
 
   has_one_attached :profile_image
 

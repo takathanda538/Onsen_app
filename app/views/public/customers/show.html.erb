@@ -1,9 +1,20 @@
-<h1>Public::Customers#show</h1>
-<p>Find me in app/views/public/customers/show.html.erb</p>
-<h1>User name</h1>
-<%= image_tag @customer.get_profile_image(100,100) %>
-<%= @customer.name %>
-<% @posts.each do |post| %>
-  <h5><%= post.name %></h5>
-  <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-success" %>
-<% end %>
+<div class="row">
+
+  <div class="col-3">
+    <h1>ユーザー詳細</h1>
+    <h1>User name</h1>
+    <%= image_tag @customer.get_profile_image(100,100) %>
+    <p>投稿者</p>
+    <%= @customer.name %><br>
+    <%= @customer.introduce %><br>
+    <%= link_to '編集', edit_customer_path(@customer) %>
+  </div>
+
+  <div class="col-9">
+    <% @posts.each do |post| %>
+      <h5><%= post.name %></h5>
+      <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-success" %>
+    <% end %>
+  </div>
+
+</div>

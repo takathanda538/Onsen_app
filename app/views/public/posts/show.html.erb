@@ -4,7 +4,7 @@
 <%= @post.body %>
 <% if @post.post_images.attached? %>
   <% @post.post_images.each do |image| %>
-  <%= image_tag image.variant(resize: '100x100') %>
+    <%= image_tag image.variant(resize: '100x100') %>
   <% end %>
 <% end %>
 <h1>post_comment</h1>
