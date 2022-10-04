@@ -23,9 +23,10 @@ namespace :admin do
   end
 
   scope module: :public do
-    resources :post_comments
-    resources :posts
-    resources :customers, only:[:show,:edit,:update]
+    resources :posts do
+      resources :post_comments
+    end
+    resources :customers, only:[:show,:edit,:index,:update]
     resources :likes
     root to: 'homes#top'
     get 'about' => 'homes#about'

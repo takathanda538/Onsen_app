@@ -3,8 +3,15 @@
 <div class="row">
   <div class="col-12">
   <% @posts.each do |post| %>
-  <h5><%= post.customer.name %></h5>
-  <h5><%= post.name %></h5>
+    <%= link_to post_path(post) do%>
+      <h5><%= post.customer.name %></h5>
+      <h5><%= post.name %></h5>
+      <% if post.post_images.attached? %>
+      <% post.post_images.each do |image| %>
+        <%= image_tag image.variant(resize: '100x100') %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
   </div>
 </div>
