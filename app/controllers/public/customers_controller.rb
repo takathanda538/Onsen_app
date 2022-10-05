@@ -11,8 +11,9 @@ class Public::CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
-    @post = Post.find(params[:id])
     @posts = @customer.posts
+    @following_customers = @customer.following_customer
+    @follower_customers = @customer.follower_customer
   end
 
   def index
@@ -26,6 +27,16 @@ class Public::CustomersController < ApplicationController
     else
       render "edit"
     end
+  end
+  
+  def follows
+    customer = Customer.find(params[:id])
+    @customers = customer.following_customer
+  end
+  
+  def followers
+    customer = Customer.find(params[:id])
+    @customers = customer.follower_customer
   end
   
   private

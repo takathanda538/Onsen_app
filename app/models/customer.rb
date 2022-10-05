@@ -8,8 +8,25 @@ class Customer < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :like_posts, through: :likes, source: :post
+  has_many :following, class_name: "Relationship", foreign_key: "following_id", dependent: :destroy
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :following_customer, through: :following, source: :follower # 自分がフォローしている人
+  has_many :follower_customer, through: :follower, source: :following # 自分をフォローしている人
 
   has_one_attached :profile_image
+  has_many_attached :post_images
+  
+  def follow(user_id)
+    following.create(follower_id: user_id)
+  end
+  
+  def unfollow(user_id)
+    following.find_by(follower_id: user_id).destroy
+  end
+  
+  def following?(user)
+    following_customer.include?(user)
+  end
 
   def get_profile_image(width, height)
     unless profile_image.attached?

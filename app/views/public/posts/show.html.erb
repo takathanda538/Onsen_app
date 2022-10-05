@@ -1,12 +1,14 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
-<%= @customer.name %>
+<h1>投稿詳細</h1>
 <%= @post.body %>
 <% if @post.post_images.attached? %>
-  <% @post.post_images.each do |image| %>
-    <%= image_tag image.variant(resize: '100x100') %>
+  <% @post.post_images.each do |image| %><br>
+    <%= image_tag image.variant(resize: '50x50') %>
   <% end %>
 <% end %>
+  <% if @post.customer.id == current_customer.id %>
+    <td><%= link_to 'Edit', edit_post_path(@post), class: "btn btn-sm btn-success" %></td>
+    <td><%= link_to 'Destroy', @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
+  <% end %>
 <h1>post_comment</h1>
 <%= form_with model: [@post, @post_comment] , remote:false do |f| %>
   <div class="form-group">
