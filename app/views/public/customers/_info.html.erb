@@ -1,0 +1,27 @@
+<table class='table'>
+  <tr><%= image_tag customer.get_profile_image(50,50) %></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= customer.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th style="width: 200%"><%= customer.introduce %></th>
+  </tr>
+  <tr>
+    <th>フォロー</th>
+    <th>
+      <%= link_to follows_customer_path(customer) do %>
+	    <%= customer.following_customer.count %>
+	    <% end %>
+	  </th>
+	</tr>
+  <tr>
+    <th>フォロアー</th>
+	  <th>
+	    <%= link_to followers_customer_path(customer) do %>
+	    <%= customer.follower_customer.count %>
+	    <% end %>
+	   </th>
+	</tr>
+</table>

@@ -1,20 +1,12 @@
 <div class="row">
 
   <div class="col-3">
-    <h1>ユーザー詳細</h1>
-    <h1>User name</h1>
-    <%= image_tag @customer.get_profile_image(100,100) %>
-    <p>投稿者</p>
-    <%= @customer.name %><br>
-    <%= @customer.introduce %><br>
-    <%= link_to '編集', edit_customer_path(@customer) %>
+    <%= render 'info', customer: @customer %>
+     <% if customer_signed_in? && @customer == current_customer %>
+       <%= link_to "プロフィール編集", edit_customer_path(@customer), class: "btn-sm btn-success" %>
+     <% end %>
   </div>
-
   <div class="col-9">
-    <% @posts.each do |post| %>
-      <h5><%= post.name %></h5>
-      <%= link_to 'Edit', edit_post_path(post), class: "btn btn-sm btn-success" %>
-    <% end %>
+    <%= render 'public/posts/index', posts: @posts %>
   </div>
-
 </div>

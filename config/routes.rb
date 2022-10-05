@@ -27,7 +27,14 @@ namespace :admin do
       resources :post_comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]
     end
-    resources :customers, only:[:show,:edit,:index,:update]
+    
+    resources :customers, only:[:show,:edit,:index,:update] do
+      member do
+        get :follows, :followers
+      end
+      resource :relationships, only: [:create, :destroy]
+    end
+    
     root to: 'homes#top'
     get 'about' => 'homes#about'
   end
