@@ -1,4 +1,5 @@
 class Public::CustomersController < ApplicationController
+  before_action :set_customer, only: [:follows, :followers]
   
   def edit
     @customer = Customer.find(params[:id])
@@ -43,6 +44,10 @@ class Public::CustomersController < ApplicationController
 
   def customer_params
     params.require(:customer).permit(:name, :introduce, :profile_image)
+  end
+  
+  def set_customer
+    @customer = Customer.find(params[:id])
   end
   
 end
