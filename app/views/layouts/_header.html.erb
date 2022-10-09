@@ -1,8 +1,12 @@
 <header>
-  <nav class="navbar navbar-expand-sm">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="home-page-1.html"><img src="../assets/img/no_image.jpg" alt="Docs UI Kit" style="width: 150px;"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse-2" aria-controls="navbarCollapse-2" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <% if customer_signed_in? %>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto h4">
+      <div class="collapse navbar-collapse" id="navbarCollapse-2">
+        <ul class="navbar-nav ml-auto mr-sm-2 mt-2 mt-lg-0">
           <li class="nav-item">
             <%= link_to "マイページ" ,customer_path(current_customer), class: 'nav-link'%>
           </li>
@@ -18,10 +22,18 @@
           <li class="nav-item">
             <%= link_to  "ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link' %>
           </li>
+          <div class="search_form">
+            <%= form_with url: search_path, local: true, method: :get do |f| %>
+              <%= f.text_field :word %>
+              <%= f.select :range, options_for_select([['Customer'], ['Post']]) %>
+              <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+              <%= f.submit "検索", class: "btn btn-outline-success flex-shrink-" %>
+            <% end %>
+          </div>
         </ul>
       </div>
     <% elsif admin_signed_in? %>
-      <ul class="navbar-nav ml-auto h4">
+      <ul class="navbar-nav ml-auto mr-sm-2 mt-2 mt-lg-0">
         <li class="nav-item">
           <%= link_to "商品一覧", root_path, class: 'nav-link'  %>
         </li>
@@ -37,9 +49,13 @@
         <li class="nav-item">
           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link' %>
         </li>
+        <form class="d-flex" role="search">
+          <input type="search" class="form-control me-2" placeholder="検索..." aria-label="検索...">
+          <button type="submit" class="btn btn-outline-success flex-shrink-0">検索</button>
+        </form>
       </ul>
     <% else %>
-      <ul class="navbar-nav ml-auto h4">
+      <ul class="navbar-nav ml-auto mr-sm-2 mt-2 mt-lg-0">
         <li class="nav-item">
           <%= link_to "Home",root_path, class: 'nav-link'  %>
         </li>
