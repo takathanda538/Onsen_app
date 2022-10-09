@@ -1,6 +1,20 @@
   <div class="row">
-    <div class="col-4">
+    <div class="col-3">
     
+    <h1>post_comment</h1>
+    <%= form_with model: [@post, @post_comment] , remote:false do |f| %>
+      <div class="form-group">
+        <%= f.label :comment %>
+        <%= f.text_area :comment, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-success' %>
+      </div>
+    <% end %>
+    </div>
+    
+    <div class="col-9">
+      
     <h1>投稿詳細</h1>
     <%= @post.name %><br>
     <%= @post.title %><br>
@@ -14,20 +28,6 @@
         <td><%= link_to 'Edit', edit_post_path(@post), class: "btn btn-sm btn-success" %></td>
         <td><%= link_to 'Destroy', @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
       <% end %>
-    </div>
-    
-    <div class="col-8">
-      
-    <h1>post_comment</h1>
-    <%= form_with model: [@post, @post_comment] , remote:false do |f| %>
-      <div class="form-group">
-        <%= f.label :comment %>
-        <%= f.text_area :comment, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.submit class: 'btn btn-success' %>
-      </div>
-    <% end %>
     
       <% @post.post_comments.each do |post_comment| %>
       <h3><%= post_comment.comment %><h3>
