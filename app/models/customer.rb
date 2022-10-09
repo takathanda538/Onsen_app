@@ -16,6 +16,20 @@ class Customer < ApplicationRecord
   has_one_attached :profile_image
   has_many_attached :post_images
   
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @customer = Customer.where("name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      @customer = Customer.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @customer = Customer.where("name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @customer = Customer.where("name LIKE?","%#{word}%")
+    else
+      @customer = Customer.all
+    end
+  end
+  
   def follow(user_id)
     following.create(follower_id: user_id)
   end
