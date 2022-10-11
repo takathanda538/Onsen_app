@@ -6,7 +6,8 @@
     <tbody>
       <% @customers.each do |customer| %>
         <tr>
-          <td><%= customer.name %></td>
+          <td><%= image_tag customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %><br><%= customer.name %></td>
+          <td><%= customer.introduce %></td>
         </tr>
       <% end %>
     </tbody>
@@ -15,8 +16,9 @@
     <tbody>
       <% @posts.each do |post| %>
         <tr>
-          <td><%= post.title %></td>
+          <td><%= post.customer.name %></td>
           <td><%= post.body %></td>
+          <td><%= post.ride_area %></td>
         </tr>
       <% end %>
     </tbody>

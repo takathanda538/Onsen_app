@@ -5,7 +5,7 @@ def create
 
   current_customer.follow(params[:customer_id])
    @customer = Customer.find(params[:customer_id])
-  redirect＿to request.referer
+  # redirect＿to request.referer
 end
 
 def destroy

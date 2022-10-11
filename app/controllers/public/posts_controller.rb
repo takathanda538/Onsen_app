@@ -41,13 +41,13 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_back(fallback_location: root_path)
+    redirect_to posts_path, notice: "You have updated book successfully."
   end
   
   private
 
   def post_params
-    params.require(:post).permit(:name, :title, :body, post_images: [] )
+    params.require(:post).permit(:name,:ride_area, :title, :body, post_images: [] )
   end
 
 end
