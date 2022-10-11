@@ -1,12 +1,12 @@
 <table class='table'>
-  <tr><%= image_tag customer.get_profile_image(50,50) %></tr>
+  <tr><%= image_tag customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %></tr>
   <tr>
 	  <th>name</th>
 	  <th><%= customer.name %></th>
   </tr>
   <tr>
-	  <th>introduction</th>
-	  <th style="width: 200%"><%= customer.introduce %></th>
+	  <th></th>
+	  <th><p><%= customer.introduce %></p></th>
   </tr>
   <tr>
     <th>フォロー</th>

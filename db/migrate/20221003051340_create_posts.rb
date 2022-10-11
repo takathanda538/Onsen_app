@@ -5,6 +5,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :title
       t.text :body
+      t.integer :ride_area, null: false, default: 0
 
       t.timestamps
     end

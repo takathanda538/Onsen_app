@@ -1,36 +1,39 @@
   <div class="row">
-    <div class="col-3">
+    <div class="col-5">
     
-    <h1>post_comment</h1>
     <%= form_with model: [@post, @post_comment] , remote:false do |f| %>
       <div class="form-group">
-        <%= f.label :comment %>
+        <%= f.label :コメント入力 %>
         <%= f.text_area :comment, class: 'form-control' %>
       </div>
       <div class="form-group">
         <%= f.submit class: 'btn btn-success' %>
       </div>
     <% end %>
-    </div>
-    
-    <div class="col-9">
-      
-    <h1>投稿詳細</h1>
-    <%= @post.name %><br>
-    <%= @post.title %><br>
-    <%= @post.body %><br>
-    <% if @post.post_images.attached? %>
-      <% @post.post_images.each do |image| %><br>
-        <%= image_tag image.variant(resize: '50x50') %>
-      <% end %>
+
+    <% @post.post_comments.each do |post_comment| %>
+      <p><%= post_comment.comment %></p>
     <% end %>
-      <% if @post.customer.id == current_customer.id %>
-        <td><%= link_to 'Edit', edit_post_path(@post), class: "btn btn-sm btn-success" %></td>
-        <td><%= link_to 'Destroy', @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
-      <% end %>
-    
-      <% @post.post_comments.each do |post_comment| %>
-      <h3><%= post_comment.comment %><h3>
-      <% end %>
     </div>
-  </div>  
+
+    <div class="col-7">
+     <article>
+     <h1><%= @post.name %>(<%= @post.ride_area%>)</h1>
+     <section>
+     <h5>~~<%= @post.title %>~~</h5>
+      <% if @post.post_images.attached? %>
+        <% @post.post_images.each do |image| %>
+          <%= image_tag image.variant(resize: '150x150') %>
+        <% end %>
+      <% end %>
+     <h5>日記</h5>
+     <p><%= @post.body %></p>
+     </section>
+     </article>
+     <% if @post.customer == current_customer %>
+       <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success"%>
+       <%= link_to '消去', post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+     <% end %>
+
+    </div>
+  </div>
