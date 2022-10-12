@@ -1,0 +1,2 @@
+$('#sideber_<%= @customer.id %>').html("<%= j(render partial: "public/customers/info", locals: { customer: @customer }) %>");
+$('#relationship_<%= @customer.id %>').html("<%= j(render partial: "public/relationships/relationship", locals: { customer: @customer }) %>");
