@@ -54,8 +54,6 @@ ActiveRecord::Schema.define(version: 2022_10_10_072933) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.string "introduce"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -66,13 +64,17 @@ ActiveRecord::Schema.define(version: 2022_10_10_072933) do
     t.boolean "is_deleted", default: false
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
+    
   end
 
   create_table "likes", force: :cascade do |t|
-    t.bigint "customer", null: false
-    t.bigint "post", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_likes_on_customer_id"
+    t.index ["post_id"], name: "index_likes_on_post_id"
+    
   end
 
   create_table "post_comments", force: :cascade do |t|
@@ -105,6 +107,8 @@ ActiveRecord::Schema.define(version: 2022_10_10_072933) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "likes", "customers"
+  add_foreign_key "likes", "posts"
   add_foreign_key "posts", "customers"
   add_foreign_key "relationships", "customers", column: "follower_id"
   add_foreign_key "relationships", "customers", column: "following_id"
