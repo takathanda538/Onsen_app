@@ -7,6 +7,12 @@ class Public::SessionsController < Devise::SessionsController
     posts_path
   end
   
+  def guest_sign_in
+    customer = Customer.guest
+    sign_in customer
+    redirect_to customer_path(customer), notice: 'guestuserでログインしました。'
+  end
+  
   private
 
   def configure_permitted_parameters
