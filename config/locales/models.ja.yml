@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      customer:
+        email: メールアドレス
+        name: 名前
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: 次回から自動的にログイン

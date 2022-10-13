@@ -13,6 +13,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
 
+devise_scope :customers do
+  post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
+end
+
 get "search" => "searches#search"
 namespace :admin do
     resources :orders, only:[:show,:update]
