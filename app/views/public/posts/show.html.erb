@@ -1,6 +1,26 @@
   <div class="row">
-    <div class="col-5">
-    
+
+    <div class="col-lg-6">
+    <% if @post.post_images.attached? %>
+      <% @post.post_images.each do |image| %>
+        <%= image_tag image.variant(resize: '250x150') %>
+      <% end %>
+    <% end %>
+    <div class="card" style="width: 25rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= @post.name %>(<%= @post.ride_area%>)</h5>
+        <h6 class="card-subtitle mb-2 text-muted">~~<%= @post.title %>~~</h6>
+        <p class="card-text"><%= @post.body %></p>
+        <% if @post.customer == current_customer %>
+           <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success"%>
+           <%= link_to '消去', post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+         <% end %>
+      </div>
+    </div>
+    </div>
+
+    <div class="col-lg-6">
+
     <%= form_with model: [@post, @post_comment] , remote:false do |f| %>
       <div class="form-group">
         <%= f.label :コメント入力 %>
@@ -11,29 +31,24 @@
       </div>
     <% end %>
 
-    <% @post.post_comments.each do |post_comment| %>
-      <p><%= post_comment.comment %></p>
-    <% end %>
-    </div>
-
-    <div class="col-7">
-     <article>
-     <h1><%= @post.name %>(<%= @post.ride_area%>)</h1>
-     <section>
-     <h5>~~<%= @post.title %>~~</h5>
-      <% if @post.post_images.attached? %>
-        <% @post.post_images.each do |image| %>
-          <%= image_tag image.variant(resize: '150x150') %>
+      <div class="card">
+        <% @post.post_comments.each do |post_comment| %>
+        <div class="card-body">
+          <h5 class="card-text">
+            <% if post_comment.customer.profile_image.attached? %>
+               <%= image_tag post_comment.customer.get_profile_image(30,30) , class: "rounded-circle", size: "30x30" %>
+            <% end %>
+            <%= link_to customer_path(post_comment.customer) do%>
+              <%= post_comment.customer.name %>
+            <% end %>
+            <% if post_comment.customer == current_customer %>
+             <%= link_to '編集', edit_post_post_comment_path(@post,post_comment), class: "btn btn-sm btn-success"%>
+             <%= link_to '消去', post_post_comment_path(@post,post_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+            <% end %>
+          </h5>
+          <p class="card-text"><%= post_comment.comment %></p>
+        </div>
         <% end %>
-      <% end %>
-     <h5>日記</h5>
-     <p><%= @post.body %></p>
-     </section>
-     </article>
-     <% if @post.customer == current_customer %>
-       <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success"%>
-       <%= link_to '消去', post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
-     <% end %>
-
+      </div>
     </div>
   </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_10_072933) do
+ActiveRecord::Schema.define(version: 2022_10_14_014159) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -68,11 +68,30 @@ ActiveRecord::Schema.define(version: 2022_10_10_072933) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.bigint "customer", null: false
-    t.bigint "post", null: false
+  create_table "entries", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "room_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_entries_on_customer_id"
+    t.index ["room_id"], name: "index_entries_on_room_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "room_id", null: false
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_messages_on_customer_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
   end
 
   create_table "post_comments", force: :cascade do |t|
@@ -103,8 +122,17 @@ ActiveRecord::Schema.define(version: 2022_10_10_072933) do
     t.index ["following_id"], name: "index_relationships_on_following_id"
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "entries", "customers"
+  add_foreign_key "entries", "rooms"
+  add_foreign_key "messages", "customers"
+  add_foreign_key "messages", "rooms"
   add_foreign_key "posts", "customers"
   add_foreign_key "relationships", "customers", column: "follower_id"
   add_foreign_key "relationships", "customers", column: "following_id"

@@ -1,5 +1,7 @@
 class Public::CustomersController < ApplicationController
-  before_action :set_customer, only: [:follows, :followers]
+  
+  before_action :set_customer, only: [:follows, :followers,:likes]
+  before_action :ensure_guest_customer, only: [:edit]
   
   def edit
     @customer = Customer.find(params[:id])
@@ -15,6 +17,22 @@ class Public::CustomersController < ApplicationController
     @posts = @customer.posts
     @following_customers = @customer.following_customer
     @follower_customers = @customer.follower_customer
+    @current_entry = Entry.where(customer_id: current_customer.id)
+    @another_entry = Entry.where(customer_id: @customer.id)
+    unless @customer.id == current_customer.id
+      @current_entry.each do |current|
+        @another_entry.each do |another|
+          if current.room_id == another.room_id
+            @is_room = true
+            @room_id = current.room_id
+          end
+        end
+      end
+      unless @is_room
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
   end
 
   def index
@@ -40,6 +58,11 @@ class Public::CustomersController < ApplicationController
     @customers = customer.follower_customer
   end
   
+  def likes
+    likes = Like.where(customer_id: @customer.id).pluck(:post_id)
+    @like_posts = Post.find(likes)
+  end
+  
   private
 
   def customer_params
@@ -49,5 +72,13 @@ class Public::CustomersController < ApplicationController
   def set_customer
     @customer = Customer.find(params[:id])
   end
+  
+  def ensure_guest_customer
+    @customer = Customer.find(params[:id])
+    if @customer.name == "guestuser"
+      redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+    end
+  end  
+
   
 end

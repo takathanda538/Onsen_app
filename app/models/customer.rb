@@ -12,6 +12,9 @@ class Customer < ApplicationRecord
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :following_customer, through: :following, source: :follower # 自分がフォローしている人
   has_many :follower_customer, through: :follower, source: :following # 自分をフォローしている人
+  has_many :entries, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :rooms, through: :entries
 
   has_one_attached :profile_image
   has_many_attached :post_images
