@@ -25,7 +25,7 @@
         </th>
       </tr>
        <tr>
-         <td><%= link_to "編集する",edit_admin_customer_path(@customer), class:"btn btn-sm btn01" %></td>
+         <td><%= link_to "編集する",edit_admin_customer_path(@customer), class:"btn btn-outline-secondary" %></td>
          <td style="text-decoration:underline"><%= link_to "コメント一覧を見る",admin_root_path(customer_id: @customer.id) %></td>
        </tr>
     </table>

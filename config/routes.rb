@@ -13,7 +13,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
 
-devise_scope :customers do
+devise_scope :customer do
   post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
 end
 
@@ -29,16 +29,18 @@ namespace :admin do
 
   scope module: :public do
     resources :posts do
-      resources :post_comments, only: [:create, :destroy]
+      resources :post_comments, only: [:create, :destroy,:edit,:update]
       resource :likes, only: [:create, :destroy]
     end
-    
+
     resources :customers, only:[:show,:edit,:index,:update] do
       member do
-        get :follows, :followers
+        get :follows, :followers,:likes
       end
       resource :relationships, only: [:create, :destroy]
     end
+    resources :messages, only: [:create]
+    resources :rooms, only: [:create, :index, :show]
     root to: 'homes#top'
     get 'about' => 'homes#about'
   end
