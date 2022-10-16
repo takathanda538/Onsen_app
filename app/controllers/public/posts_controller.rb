@@ -7,10 +7,10 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.customer_id = current_customer.id
     if @post.save
-      redirect_to post_path(@post), notice: "You have created book successfully."
+      redirect_to post_path(@post), notice: "投稿しました"
     else
       @posts = Post.all
-      render 'index'
+      # render 'index'
     end
   end
 
@@ -22,7 +22,7 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
-    @customer = @post.customer
+    @post_comments = @post.post_comments.order(created_at: :desc)
   end
 
   def edit
@@ -32,7 +32,7 @@ class Public::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to post_path(@post), notice: "You have updated book successfully."
+      redirect_to post_path(@post), notice: "投稿を編集しました"
     else
       render "edit"
     end
@@ -41,7 +41,7 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_path, notice: "You have updated book successfully."
+    # redirect_to posts_path, notice: "投稿を消去しました"
   end
 
   private

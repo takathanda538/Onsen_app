@@ -1,6 +1,6 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">温泉投稿サイト</a>
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+    <a class="navbar-brand p-3" href="/">温泉投稿サイト</a>
     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarCollapse-2" aria-controls="navbarCollapse-2" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,6 +18,9 @@
           </li>
           <li class="nav-item">
             <%= link_to "投稿",new_post_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "DM",rooms_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
             <%= link_to  "ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link' %>

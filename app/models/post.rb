@@ -12,13 +12,10 @@ class Post < ApplicationRecord
     values = labels.map(&Post.ride_areas)
     if search == "perfect_match"
       other_posts = Post.where("name LIKE ? OR title LIKE ? OR body LIKE?","#{word}", "#{word}", "#{word}")
-      @post = ride_area_posts | other_posts
     elsif search == "forward_match"
       other_posts = Post.where("name LIKE ? OR title LIKE ? OR body LIKE?","#{word}%", "#{word}%", "#{word}%")
-      @post = ride_area_posts | other_posts
     elsif search == "backward_match"
       other_posts = Post.where("name LIKE ? OR title LIKE ? OR body LIKE?","%#{word}", "%#{word}", "%#{word}")
-      @post = ride_area_posts | other_posts
     elsif search == "partial_match"
       ride_area_posts = Post.where('ride_area IN (?)', values)
       other_posts = Post.where("name LIKE ? OR title LIKE ? OR body LIKE?","%#{word}%", "%#{word}%", "%#{word}%")

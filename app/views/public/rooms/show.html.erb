@@ -1,47 +1,48 @@
+<div class="row">
 
-<div class="chat-room">
- <h1>メッセージ</h1>
- <!--# ルーム内のユーザー表示部分-->
- <% @entries.each do |r| %>
- <div class="user-name">
- <strong>
-     <a class="rooms-user-link" href="/customers/<%= r.customer.id %>">
-       <%= r.customer.name %>さん
-     </a>
- </strong>
- </div>
- <% end %>
- <!--#// ルーム内のユーザー表示部分-->
+  <div class="col-md-4">
+    <div class="chat-room">
+    <h1>メッセージ</h1>
+    <% @entries.each do |r| %>
+      <div class="user-name">
+      <%= link_to customer_path(r.customer) do %>
+        <%= r.customer.name %>さん
+      <% end %>
+      </div>
+    <% end %>
+    </div>
+  </div>
 
- <hr>
- <div class="chats">
+  <div class="col-md-8">
+    <div class="chats">
+      
+      <div class="posts">
+      <%= form_with model: @message, local: true do |f| %>
+        <%= f.text_area:body, placeholder: "メッセージを入力", style: "width:70%" %>
+        <%= f.hidden_field :room_id, value: @room.id %>
+        <%= button_tag type: 'submit', class: 'btn btn-default'  do %>
+          <i class="far fa-paper-plane fa-lg"></i>
+        <% end %>
+      <% end %>
+      </div>
 
-   <!--# メッセージ表示部分-->
-   <div class="chat">
-     <% if @messages.present? %>
-       <% @messages.each do |m| %>
-         <div class="chat-box">
-           <div class="chat-text">
-             <%= m.body %>
-             <%= m.created_at.strftime("%Y-%m-%d %H:%M") %>
-           </div>
-         </div>
-       <% end %>
-       <%else%>
-         <p>メッセージはまだありません</p>
-     <% end %>
-   </div>
-   <!--#// メッセージ表示部分-->
+      <div class="chat">
+      <% if @messages.present? %>
+        <% @messages.each do |m| %>
+        <div class="chat-box">
+          <div class="chat-text">
+          <%= image_tag m.customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %>
+          <%= m.body %>
+          <%= m.created_at.strftime("%m-%d %H:%M") %>
+          </div>
+        </div>
+        <% end %>
+      <%else%>
+      <p>メッセージはまだありません</p>
+      <% end %>
+      </div>
 
-   <!--# メッセージ投稿フォーム-->
-   <div class="posts">
-     <%= form_with model: @message, local: true do |f| %>
-       <%= f.text_area:body, placeholder: "メッセージを入力してください", :size => 150 %>
-       <%= f.hidden_field :room_id, value: @room.id %>
-       <%= f.submit "送信する" %>
-     <% end %>
-   </div>
-   <!--#// メッセージ投稿フォーム-->
 
- </div>
+    </div>
+  </div>
 </div>

@@ -1,6 +1,13 @@
-  
-  <% @post.post_comments.each do |post_comment| %>
-  
-    <h3><%= post_comment.comment %><h3>
-  
+  <% post_comments.each do |post_comment| %>
+      <% if post_comment.customer.profile_image.attached? %>
+         <%= image_tag post_comment.customer.get_profile_image(30,30) , class: "rounded-circle", size: "30x30" %>
+      <% end %>
+      <%= link_to customer_path(post_comment.customer) do%>
+        <%= post_comment.customer.name %>
+      <% end %>
+      <% if post_comment.customer == current_customer %>
+       <%= link_to '編集', edit_post_post_comment_path(post,post_comment), class: "btn btn-sm btn-success"%>
+       <%= link_to '消去', post_post_comment_path(post,post_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger", remote: true%>
+      <% end %>
+    <p><%= post_comment.comment %></p>
   <% end %>
