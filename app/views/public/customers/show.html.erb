@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-3">
+  <div class="col-md-3">
     <div id = "sideber_<%= @customer.id %>">
       <%= render partial: "public/customers/info", locals: { customer: @customer } %>
     </div>
@@ -15,7 +15,7 @@
       <% if @is_room == true %>
         <%= link_to "ダイレクトメッセージ", room_path(@room_id) %>
       <% else %>
-        <%= form_for @room do |f| %>
+        <%= form_with model: @room , local: true do |f| %>
           <%= fields_for @entry do |e| %>
             <% e.hidden_field :customer_id, value: @customer.id%>
           <% end %>
@@ -28,7 +28,7 @@
 
 
 
-  <div class="col-9">
+  <div class="col-md-8 offset-lg-1">
     <h1>日記一覧</h1>
     <%= render 'public/posts/index', posts: @posts %>
   </div>

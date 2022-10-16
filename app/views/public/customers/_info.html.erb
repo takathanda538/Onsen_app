@@ -1,27 +1,35 @@
+
+<div class="card border border-0" style="width: 18rem;">
+	<%= image_tag  customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %>
+  <div class="card-body">
+    <h5 class="card-title"><%= customer.name %></h5>
+    <p class="card-text"><%= customer.introduce %></p>
+  </div>
+</div>
+
 <table class='table'>
-  <tr><%= image_tag customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %></tr>
-  <tr>
-	  <th>name</th>
-	  <th><%= customer.name %></th>
-  </tr>
-  <tr>
-	  <th></th>
-	  <th><p><%= customer.introduce %></p></th>
-  </tr>
-  <tr>
-    <th>フォロー</th>
-    <th>
-      <%= link_to follows_customer_path(customer) do %>
-	    <%= customer.following_customer.count %>
-	    <% end %>
-	  </th>
-	</tr>
-  <tr>
-    <th>フォロアー</th>
-	  <th>
-	    <%= link_to followers_customer_path(customer) do %>
-	    <%= customer.follower_customer.count %>
-	    <% end %>
-	   </th>
-	</tr>
+	<tbody>
+		<tr>
+    	<th scope="row">フォロー</th>
+	    <td>
+	      <%= link_to follows_customer_path(customer) do %>
+		    <%= customer.following_customer.count %>
+		    <% end %>
+		  </td>
+		</tr>  
+		<tr>  
+    	<th scope="row"> フォロアー</th>
+		  <td>
+		    <%= link_to followers_customer_path(customer) do %>
+		    <%= customer.follower_customer.count %>
+		    <% end %>
+		  </td>
+		</tr>
+		<tr>  
+    	<th scope="row"> 投稿数</th>
+		  <td>
+		    <%= customer.posts.count %>
+		  </td>
+		</tr>
+	</tbody>
 </table>

@@ -1,10 +1,12 @@
 class Public::PostCommentsController < ApplicationController
+  
   def create
     @post = Post.find(params[:post_id])
-    @post_comment = current_customer.post_comments.new(post_comment_params)
-    @post_comment.post_id = @post.id
+    @post_comment = @post.post_comments.build(post_comment_params)
+    @post_comment.customer_id = current_customer.id
     @post_comment.save
-    redirect_back(fallback_location: root_path)
+    @post_comments = @post.post_comments
+    # render :index
   end
 
   def index
@@ -32,9 +34,11 @@ class Public::PostCommentsController < ApplicationController
   
   def destroy
     @post_comment = PostComment.find(params[:id])
+    @post = @post_comment.post
+    @post_comments = @post.post_comments
     @post_comment.destroy
     flash[:alert] = "コメントを削除しました"
-    redirect_to post_path(params[:post_id])
+    # redirect_to post_path(params[:post_id])
   end
 
   private

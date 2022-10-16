@@ -1,0 +1,27 @@
+<div class="left-button">
+  <h4 class="rooms-title">気になる同士</h4>
+  <% @entries.each do |r| %>
+    <div class="user-name">
+    <%= link_to customer_path(r.customer) do %>
+      <%= image_tag r.customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %>
+      <%= r.customer.name %>さん
+    <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="chat">
+  <% if @messages.present? %>
+    <% @messages.each do |m| %>
+  <div class="chat-box">
+    <div class="chat-text">
+      <%= image_tag m.customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %>
+      <%= m.body %>
+      <%= m.created_at.strftime("%m-%d %H:%M") %>
+    </div>
+  </div>
+    <% end %>
+  <%else%>
+  <p>メッセージはまだありません</p>
+  <% end %>
+</div>

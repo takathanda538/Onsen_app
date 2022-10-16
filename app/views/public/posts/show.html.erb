@@ -21,34 +21,14 @@
 
     <div class="col-lg-6">
 
-    <%= form_with model: [@post, @post_comment] , remote:false do |f| %>
-      <div class="form-group">
-        <%= f.label :コメント入力 %>
-        <%= f.text_area :comment, class: 'form-control' %>
+      <% if customer_signed_in? %>
+      <div id="comments_form">
+        <%= render partial: 'public/post_comments/form', locals:{ post: @post, post_comment: @post_comment } %>
       </div>
-      <div class="form-group">
-        <%= f.submit class: 'btn btn-success' %>
+      <% end %>
+      <div id="comments_area">
+        <%= render partial: 'public/post_comments/index', locals:{post: @post,post_comments: @post_comments } %>
       </div>
-    <% end %>
 
-      <div class="card">
-        <% @post.post_comments.each do |post_comment| %>
-        <div class="card-body">
-          <h5 class="card-text">
-            <% if post_comment.customer.profile_image.attached? %>
-               <%= image_tag post_comment.customer.get_profile_image(30,30) , class: "rounded-circle", size: "30x30" %>
-            <% end %>
-            <%= link_to customer_path(post_comment.customer) do%>
-              <%= post_comment.customer.name %>
-            <% end %>
-            <% if post_comment.customer == current_customer %>
-             <%= link_to '編集', edit_post_post_comment_path(@post,post_comment), class: "btn btn-sm btn-success"%>
-             <%= link_to '消去', post_post_comment_path(@post,post_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
-            <% end %>
-          </h5>
-          <p class="card-text"><%= post_comment.comment %></p>
-        </div>
-        <% end %>
-      </div>
     </div>
   </div>
