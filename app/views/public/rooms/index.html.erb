@@ -1,12 +1,20 @@
 <div class="row">
-  <div class="col-10">
-    <div>
+  <div class="col-10 jastify-content-center">
+    <table class = table >
     <% @another_entries.each do |entry| %>
-      <%= link_to room_path(entry.room.id) do %>
-        <%= image_tag entry.customer.get_profile_image(50,50) %>
-        <%= entry.customer.name %>
-      <% end %>
+      <tbody>
+        <tr>
+            <td><%= image_tag entry.customer.get_profile_image(50,50), class:  "rounded-circle", size: "50x50" %></td>
+            <td>
+              <%= link_to room_path(entry.room.id) do %>
+                <%= entry.customer.name %>
+              <% end %>
+            </td>
+            <!--<td>ここに会話の最後のメッセージを入れたい</td>-->
+        </tr>
+      </tbody>
     <% end %>
-    </div>
+    </table>
   </div>
 </div>
+
