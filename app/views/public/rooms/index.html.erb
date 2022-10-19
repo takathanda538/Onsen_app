@@ -1,20 +1,29 @@
-<div class="row">
-  <div class="col-10 jastify-content-center">
-    <table class = table >
-    <% @another_entries.each do |entry| %>
-      <tbody>
-        <tr>
+<div class="container">
+  <div class="row">
+    <div class="col-10 jastify-content-center">
+      <table class = table >
+        <thead>
+          <th></th>
+          <th>ユーザ名</th>
+          <th>最後の会話</th>
+        </thead>
+        <% @another_entries.each do |entry| %>
+        <tbody>
+          <tr>
             <td><%= image_tag entry.customer.get_profile_image(50,50), class:  "rounded-circle", size: "50x50" %></td>
             <td>
               <%= link_to room_path(entry.room.id) do %>
                 <%= entry.customer.name %>
               <% end %>
             </td>
-            <!--<td>ここに会話の最後のメッセージを入れたい</td>-->
-        </tr>
-      </tbody>
-    <% end %>
-    </table>
+            <td>
+              <%= Message.find_by(id: entry.room.message_ids.last)&.body %>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+      </table>
+    </div>
   </div>
-</div>
+</div>  
 

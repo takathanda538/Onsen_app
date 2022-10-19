@@ -1,7 +1,23 @@
-.container{
-  min-height: 600px;
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&display=swap');
+
+#notice,#alert {
+  margin:0;
+  padding:0;
 }
 
-.chat-box {
-    background-color: lime;
+body {
+  font-family: "Sora",sans-serif;
+}
+
+.container {
+  min-height: 600px;
+  padding-top: 15px;
+}
+
+#header {
+background: none !important;
+}
+
+.top {
+  background-image: url("../images/background.jpg")
 }

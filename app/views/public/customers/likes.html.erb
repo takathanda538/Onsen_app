@@ -1,29 +1,31 @@
- <div class="row justify-content-center">
-  <div class="col-7">
-    <table class="table table-white">
-      <thead>
-        <tr>
-          <p class ="text-center h2">お気に入り投稿</p>
-        </tr>
-      </thead>
-      <tbody>
-          <% @like_posts.each do |post| %>
-        <tr>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-7">
+      <table class="table table-white">
+        <thead>
+          <tr>
+            <p class ="text-center h2">お気に入り投稿</p>
+          </tr>
+        </thead>
+        <tbody>
+        <% @like_posts.each do |post| %>
+          <tr>
             <td>
-              <% if post.post_images.exists? %>
-                <%= image_tag post.post_images[0] , class: "rounded-circle", size: "40x40" %>
-              <% end %>
+            <% if post.post_images.exists? %>
+              <%= image_tag post.post_images[0] , class: "rounded-circle", size: "40x40" %>
+            <% end %>
             </td>
             <td><%= post.name %></td>
             <td><%= post.ride_area %></td>
             <td>
-              <%= link_to post_path(post) do %>
-                <%=post.title %>
-              <% end %>
-            </td>
-        </tr>
-          <% end %>
-      </tbody>
-    </table>
+            <%= link_to post_path(post) do %>
+              <%=post.title %>
+            <% end %>
+          </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+</div> 

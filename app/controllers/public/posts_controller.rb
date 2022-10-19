@@ -7,16 +7,16 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.customer_id = current_customer.id
     if @post.save
-      redirect_to post_path(@post), notice: "投稿しました"
+      redirect_to post_path(@post), notice: "投稿に成功しました"
     else
-      @posts = Post.all
-      # render 'index'
+      @posts = Post.page(params[:page]).per(5).order(created_at: :desc)
+      render 'index', notice: "投稿に失敗しました"
     end
   end
 
   def index
     @post = Post.new
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.page(params[:page]).per(5).order(created_at: :desc)
   end
 
   def show
@@ -41,7 +41,7 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    # redirect_to posts_path, notice: "投稿を消去しました"
+    redirect_to posts_path, notice: "投稿を消去しました"
   end
 
   private
