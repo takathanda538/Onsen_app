@@ -1,34 +1,35 @@
-  <div class="row">
-
-    <div class="col-lg-6">
-    <% if @post.post_images.attached? %>
-      <% @post.post_images.each do |image| %>
-        <%= image_tag image.variant(resize: '250x150') %>
-      <% end %>
-    <% end %>
-    <div class="card" style="width: 25rem;">
-      <div class="card-body">
-        <h5 class="card-title"><%= @post.name %>(<%= @post.ride_area%>)</h5>
-        <h6 class="card-subtitle mb-2 text-muted">~~<%= @post.title %>~~</h6>
-        <p class="card-text"><%= @post.body %></p>
-        <% if @post.customer == current_customer %>
-           <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success"%>
-           <%= link_to '消去', post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
-         <% end %>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <% if @post.post_images.attached? %>
+          <% @post.post_images.each do |image| %>
+            <%= image_tag image.variant(resize: '250x150') %>
+          <% end %>
+        <% end %>
+        <div class="card" style="width: 25rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to @post.customer.name ,customer_path(@post.customer)%><br>
+              <%= @post.name %>(<%= @post.ride_area%>)
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">~~<%= @post.title %>~~</h6>
+            <p class="card-text"><%= @post.body %></p>
+            <% if @post.customer == current_customer || admin_signed_in? %>
+               <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success"%>
+               <%= link_to '消去', post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+             <% end %>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
-
-    <div class="col-lg-6">
-
-      <% if customer_signed_in? %>
-      <div id="comments_form">
-        <%= render partial: 'public/post_comments/form', locals:{ post: @post, post_comment: @post_comment } %>
+  
+      <div class="col-lg-6">
+        <% if customer_signed_in? %>
+        <div id="comments_form">
+          <%= render partial: 'public/post_comments/form', locals:{ post: @post, post_comment: @post_comment } %>
+        </div>
+        <% end %>
+        <div id="comments_area">
+          <%= render partial: 'public/post_comments/index', locals:{post: @post,post_comments: @post_comments } %>
+        </div>
       </div>
-      <% end %>
-      <div id="comments_area">
-        <%= render partial: 'public/post_comments/index', locals:{post: @post,post_comments: @post_comments } %>
-      </div>
-
     </div>
   </div>

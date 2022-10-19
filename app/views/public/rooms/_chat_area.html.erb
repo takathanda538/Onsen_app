@@ -17,7 +17,9 @@
     <div class="chat-text">
       <%= image_tag m.customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %>
       <%= m.body %>
-      <%= m.created_at.strftime("%m-%d %H:%M") %>
+      <font size="10">
+        <%= m.created_at.strftime("%m-%d %H:%M") %>
+      </font>
     </div>
   </div>
     <% end %>

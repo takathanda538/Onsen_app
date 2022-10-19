@@ -24,7 +24,7 @@ class Public::RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     if Entry.where(customer_id: current_customer.id, room_id: @room.id).present?
-      @messages = @room.messages.includes(:customer).order("created_at desc")
+      @messages = @room.messages.includes(:customer).order("created_at desc").page(params[:page]).per(3)
       @message = Message.new
       @entries = @room.entries
     else

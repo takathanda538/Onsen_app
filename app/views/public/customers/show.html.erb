@@ -1,35 +1,33 @@
-<div class="row">
-
-  <div class="col-md-3">
-    <div id = "sideber_<%= @customer.id %>">
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div id = "sideber_<%= @customer.id %>">
       <%= render partial: "public/customers/info", locals: { customer: @customer } %>
-    </div>
-     <% if customer_signed_in? && @customer == current_customer && @customer.name != "guestuser" %>
-       <%= link_to "プロフィール編集", edit_customer_path(@customer), class: "btn-sm btn-success" %>
-     <% end %>
-     <div id = "relationship_<%= @customer.id %>">
-       <%= render partial: "public/relationships/relationship", locals: { customer: @customer } %>
-     </div>
-
-    <% unless @customer.id == current_customer.id %>
-      <% if @is_room == true %>
-        <%= link_to "ダイレクトメッセージ", room_path(@room_id) %>
-      <% else %>
-        <%= form_with model: @room , local: true do |f| %>
-          <%= fields_for @entry do |e| %>
-            <% e.hidden_field :customer_id, value: @customer.id%>
-          <% end %>
-            <%= f.submit "チャットを始める" %>
-        <% end %>
+      </div>
+      <% if customer_signed_in? && @customer == current_customer && @customer.name != "guestuser" %>
+        <%= link_to "プロフィール編集", edit_customer_path(@customer), class: "btn-sm btn-success" %>
       <% end %>
-    <% end %>
-
-  </div>
-
-
-
-  <div class="col-md-8 offset-lg-1">
-    <h1>日記一覧</h1>
-    <%= render 'public/posts/index', posts: @posts %>
+      <div id = "relationship_<%= @customer.id %>">
+      <%= render partial: "public/relationships/relationship", locals: { customer: @customer } %>
+      </div>
+    
+      <% unless @customer.id == current_customer.id %>
+      <% if @is_room == true %>
+      <%= link_to "ダイレクトメッセージ", room_path(@room_id) %>
+      <% else %>
+      <%= form_with model: @room , local: true do |f| %>
+      <%= fields_for @entry do |e| %>
+      <% e.hidden_field :customer_id, value: @customer.id%>
+      <% end %>
+      <%= f.submit "チャットを始める" %>
+      <% end %>
+      <% end %>
+      <% end %>
+    </div>
+  
+    <div class="col-md-8 offset-lg-1">
+      <h1>日記一覧</h1>
+      <%= render 'public/posts/index', posts: @posts %>
+    </div>
   </div>
 </div>

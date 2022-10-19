@@ -1,4 +1,10 @@
 class Post < ApplicationRecord
+  
+  validates :name, presence: true
+  validates :ride_area, presence: true
+  validates :title, presence: true
+  validates :body, presence: true
+  
   belongs_to :customer
 
   has_many :post_comments, dependent: :destroy

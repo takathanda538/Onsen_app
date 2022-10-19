@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OnsenApp</title>
+    <title>Onsen-App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,9 +11,9 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <div class="container">
-      <p id="notice"><%= notice %></p>
-      <p id="alert"><%= alert %></p>
+    <div class = "main">
+      <div id="notice"><%= notice %></div>
+      <div id="alert"><%= alert %></div>
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>

@@ -25,9 +25,8 @@ class Public::PostCommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @post_comment = PostComment.find(params[:id])
     if @post_comment.update(post_comment_params)
-      redirect_to post_path(@post), notice: "コメントを編集しました"
+      redirect_to post_path(@post)
     else
-      flash.now[:alert] = "編集に失敗しました"
       render 'edit'
     end
   end
@@ -37,7 +36,6 @@ class Public::PostCommentsController < ApplicationController
     @post = @post_comment.post
     @post_comments = @post.post_comments
     @post_comment.destroy
-    flash[:alert] = "コメントを削除しました"
     # redirect_to post_path(params[:post_id])
   end
 

@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark py-3">
     <a class="navbar-brand p-3" href="/">温泉投稿サイト</a>
     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarCollapse-2" aria-controls="navbarCollapse-2" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -25,14 +25,7 @@
           <li class="nav-item">
             <%= link_to  "ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link' %>
           </li>
-          <div class="search_form">
-            <%= form_with url: search_path, local: true, method: :get do |f| %>
-              <%= f.text_field :word %>
-              <%= f.select :range, options_for_select([['Customer'], ['Post']]) %>
-              <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-              <%= f.submit "検索", class: "btn btn-outline-success flex-shrink-" %>
-            <% end %>
-          </div>
+          <%= render 'searches/search' %>
         </ul>
       </div>
     <% elsif admin_signed_in? %>
@@ -44,24 +37,17 @@
           <li class="nav-item">
             <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link' %>
           </li>
-          <div class="search_form">
-            <%= form_with url: search_path, local: true, method: :get do |f| %>
-              <%= f.text_field :word %>
-              <%= f.select :range, options_for_select([['Customer'], ['Post']]) %>
-              <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-              <%= f.submit "検索", class: "btn btn-outline-success flex-shrink-" %>
-            <% end %>
-          </div>
+          <%= render 'searches/search' %>
         </ul>
       </div>
     <% else %>
       <div class="collapse navbar-collapse" id="navbarCollapse-2">
         <ul class="navbar-nav ml-auto mr-sm-2 mt-2 mt-lg-0">
           <li class="nav-item">
-            <%= link_to "Home",root_path, class: 'nav-link'  %>
+            <%= link_to "Home",root_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "サイト紹介",about_path, class: 'nav-link'  %>
+            <%= link_to "サイト紹介",about_path, class: 'nav-link'%>
           </li>
           <li class="nav-item">
             <%= link_to "新規登録",new_customer_registration_path, class: 'nav-link'%>
