@@ -63,8 +63,8 @@ class Public::CustomersController < ApplicationController
   end
   
   def likes
-    likes = Like.where(customer_id: @customer.id).pluck(:post_id)
-    @like_posts = Post.find(likes)
+    @likes = Like.where(customer_id: @customer.id).pluck(:post_id)
+    @like_posts = Post.find(@likes)
   end
   
   private
