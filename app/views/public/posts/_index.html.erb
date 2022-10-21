@@ -14,7 +14,7 @@
         <td>
           <%= link_to post_path(post) do%>
             <% if post.post_images.present? %>
-              <%= image_tag post.get_profile_image(50, 50).variant(resize: '50x50'),class: "review-img"%><br>
+              <%= image_tag post.post_images[0].variant(resize: '50x50'),class: "review-img"%><br>
             <% end %>
            <%= post.name %>
           <% end %>

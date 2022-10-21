@@ -17,20 +17,23 @@ class Public::CustomersController < ApplicationController
     @posts = @customer.posts
     @following_customers = @customer.following_customer
     @follower_customers = @customer.follower_customer
-    @current_entry = Entry.where(customer_id: current_customer.id)
-    @another_entry = Entry.where(customer_id: @customer.id)
-    unless @customer.id == current_customer.id
-      @current_entry.each do |current|
-        @another_entry.each do |another|
-          if current.room_id == another.room_id
-            @is_room = true
-            @room_id = current.room_id
+    
+    unless admin_signed_in?
+      @current_entry = Entry.where(customer_id: current_customer.id)
+      @another_entry = Entry.where(customer_id: @customer.id)
+      unless @customer.id == current_customer.id
+        @current_entry.each do |current|
+          @another_entry.each do |another|
+            if current.room_id == another.room_id
+              @is_room = true
+              @room_id = current.room_id
+            end
           end
         end
-      end
-      unless @is_room
-        @room = Room.new
-        @entry = Entry.new
+        unless @is_room
+          @room = Room.new
+          @entry = Entry.new
+        end
       end
     end
   end
@@ -44,6 +47,7 @@ class Public::CustomersController < ApplicationController
     if @customer.update(customer_params)
       redirect_to customer_path(@customer.id), notice: "更新に成功しました"
     else
+      @customer = Customer.find(params[:id])
       render "edit", notice: "更新に失敗しました"
     end
   end

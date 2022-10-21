@@ -1,7 +1,9 @@
 <div class="container">  
   <div class="row">
     <div class="col-md-8">
-      <h4><%= @customer.name %>さんの会員詳細</h4>
+      <h4>
+        <%=link_to @customer.name, customer_path(@customer) %>さんの会員詳細
+      </h4>
       <table class="table">
         <tr>
           <th>会員ID</th>

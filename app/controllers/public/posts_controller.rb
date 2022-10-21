@@ -9,8 +9,7 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post), notice: "投稿に成功しました"
     else
-      @posts = Post.page(params[:page]).per(5).order(created_at: :desc)
-      render 'index', notice: "投稿に失敗しました"
+      render 'new', notice: "投稿に失敗しました"
     end
   end
 
