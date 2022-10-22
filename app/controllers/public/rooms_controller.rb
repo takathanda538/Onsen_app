@@ -24,9 +24,11 @@ class Public::RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     if Entry.where(customer_id: current_customer.id, room_id: @room.id).present?
-      @messages = @room.messages.includes(:customer).order("created_at desc").page(params[:page]).per(3)
+      @messages = @room.messages.includes(:customer).order("created_at desc").page(params[:page]).per(20)
       @message = Message.new
       @entries = @room.entries
+      @another_entries = Entry.where(room_id: @room.id).where.not(customer_id: current_customer.id)
+      @another_customer = @another_entries.first.customer
     else
       redirect_back(fallback_location: root_path)
     end
