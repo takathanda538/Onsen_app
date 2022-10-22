@@ -1,9 +1,9 @@
 class Post < ApplicationRecord
   
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1, maximum: 35 }
   validates :ride_area, presence: true
-  validates :title, presence: true
-  validates :body, presence: true
+  validates :title, presence: true, length: { minimum: 1, maximum: 180 }
+  validates :body, presence: true, length: { minimum: 1, maximum: 450 }
   
   belongs_to :customer
 

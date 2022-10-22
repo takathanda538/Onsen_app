@@ -5,5 +5,11 @@ ja:
         email: メールアドレス
         name: 名前
         password: パスワード
+        introduce: 紹介文
         password_confirmation: 確認用パスワード
         remember_me: 次回から自動的にログイン
+      post:
+        name: 温泉名
+        title: タイトル
+        body: 日記
+        ride_area: エリア

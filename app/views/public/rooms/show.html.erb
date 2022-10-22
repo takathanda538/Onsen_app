@@ -1,20 +1,9 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="chat-room">
-      <h1>メッセージ</h1>
-      <% @entries.each do |r| %>
-        <div class="user-name">
-        <%= link_to customer_path(r.customer) do %>
-          <%= r.customer.name %>さん
-        <% end %>
-        </div>
-      <% end %>
-      </div>
-    </div>
+  <div class="row justify-content-center ">
   
     <div class="col-md-8">
       <div class="chats">
+        <p id="chats-customer"><%= @another_customer.name %>さんとのトークルーム</p>
         <div class="posts">
         <%= form_with model: @message, local: true do |f| %>
           <%= f.text_area:body, placeholder: "メッセージを入力", style: "width:70%" %>
