@@ -19,7 +19,7 @@
           <% @messages.each do |message| %>
           <div class="chat-box">
             <div class="chat-text">
-            <%= image_tag message.customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %>
+            <%= image_tag message.customer.get_profile_image(50,50) , class: "rounded-circle" %>
             <%= message.body %>
             <font size="1px">
               <%= message.created_at.strftime("%m-%d %H:%M") %>
