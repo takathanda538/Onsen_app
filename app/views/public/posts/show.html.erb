@@ -2,9 +2,12 @@
     <div class="row">
       <div class="col-lg-6">
         <% if @post.post_images.attached? %>
-          <% @post.post_images.each do |image| %>
-            <%= image_tag image.variant(resize: '250x150') %>
-          <% end %>
+          <div style="width: 500px;">
+            <p><strong>Image</strong></p>
+            <% @post.post_images.each do |image| %>
+              <%= image_tag image.variant(resize: "300x200!", gravity: "center", crop: "240x240+0+0") %>
+            <% end %>
+          </div>
         <% end %>
         <div　style="width: 25rem;">
           <div class="card-body">
@@ -20,18 +23,19 @@
              <% end %>
           </div>
         </div>
+        <div class="col-lg-6">
+          <% if customer_signed_in? %>
+          <div id="comments_form">
+            <%= render partial: 'public/post_comments/form', locals:{ post: @post, post_comment: @post_comment } %>
+          </div>
+          <% end %>
+          <h3>コメント一覧</h3>
+          <div id="comments_area">
+            <%= render partial: 'public/post_comments/index', locals:{post: @post,post_comments: @post_comments } %>
+          </div>
+         <%= paginate @post_comments %>
+        </div>
       </div>
   
-      <div class="col-lg-6">
-        <% if customer_signed_in? %>
-        <div id="comments_form">
-          <%= render partial: 'public/post_comments/form', locals:{ post: @post, post_comment: @post_comment } %>
-        </div>
-        <% end %>
-        <div id="comments_area">
-          <%= render partial: 'public/post_comments/index', locals:{post: @post,post_comments: @post_comments } %>
-        </div>
-      </div>
-      <%= paginate @post_comments %>
     </div>
   </div>
