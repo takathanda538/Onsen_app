@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+
   def new
     @post = Post.new
   end
@@ -43,6 +44,13 @@ class Public::PostsController < ApplicationController
     redirect_to posts_path, notice: "投稿を消去しました"
   end
 
+  def search
+    if params[:name].present?
+      @results =Post.where("name LIKE ?", "%#{params[:name]}%").page(params[:page]).per(5).order('created_at DESC')
+    else
+      @results = Post.where(ride_area: params[:ride_area]).page(params[:page]).per(5).order('created_at DESC')
+    end
+  end
   private
 
   def post_params
