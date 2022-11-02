@@ -1,7 +1,5 @@
 class Public::PostsController < ApplicationController
-  
-  before_action :set_search
-  
+
   def new
     @post = Post.new
   end
@@ -46,15 +44,17 @@ class Public::PostsController < ApplicationController
     redirect_to posts_path, notice: "投稿を消去しました"
   end
 
+  def search
+    if params[:name].present?
+      @results =Post.where("name LIKE ?", "%#{params[:name]}%").page(params[:page]).per(5).order('created_at DESC')
+    else
+      @results = Post.where(ride_area: params[:ride_area]).page(params[:page]).per(5).order('created_at DESC')
+    end
+  end
   private
 
   def post_params
     params.require(:post).permit(:name,:ride_area, :title, :body, post_images: [] )
-  end
-  
-  def set_search
-    @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true)
   end
 
 end
