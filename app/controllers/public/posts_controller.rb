@@ -1,4 +1,7 @@
 class Public::PostsController < ApplicationController
+  
+  before_action :set_search
+  
   def new
     @post = Post.new
   end
@@ -47,6 +50,11 @@ class Public::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:name,:ride_area, :title, :body, post_images: [] )
+  end
+  
+  def set_search
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true)
   end
 
 end
