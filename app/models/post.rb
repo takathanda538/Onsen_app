@@ -11,6 +11,7 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :like_customers, through: :likes, source: :customer
   has_many :notifications, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   has_many_attached :post_images
 
