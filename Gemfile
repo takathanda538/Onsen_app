@@ -66,4 +66,3 @@ end
   gem "net-imap"
   gem 'kaminari'
   gem 'bootstrap5-kaminari-views', '~> 0.0.1'
-  gem 'ransack'
