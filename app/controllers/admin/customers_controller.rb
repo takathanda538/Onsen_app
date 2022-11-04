@@ -1,19 +1,19 @@
 class Admin::CustomersController < ApplicationController
-  
+
   before_action :authenticate_admin!
-  
+
   def index
     @customers = Customer.all
   end
-  
+
   def show
     @customer = Customer.find(params[:id])
   end
-  
+
   def edit
     @customer = Customer.find(params[:id])
   end
-  
+
   def update
     @customer = Customer.find(params[:id])
     if @customer.update(customer_params)
@@ -22,6 +22,10 @@ class Admin::CustomersController < ApplicationController
       flash[:notice] = "入力内容を確認してください"
       render "edit"
     end
+  end
+
+  def search
+    @customers = Customer.where("name LIKE ?" , "%#{params[:name]}%")
   end
 
   private
@@ -33,5 +37,5 @@ class Admin::CustomersController < ApplicationController
       :is_deleted
       )
   end
-  
+
 end

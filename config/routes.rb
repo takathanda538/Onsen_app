@@ -17,9 +17,9 @@ devise_scope :customer do
   post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
 end
 
-get "search" => "searches#search"
 namespace :admin do
     resources :orders, only:[:show,:update]
+    get 'customers/search'
     resources :customers, only:[:index,:show,:edit,:update]
     resources :genres, only:[:index,:create,:edit,:update]
     resources :items, except:[:destroy]
