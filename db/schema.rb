@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2022_11_02_114620) do
     t.string "title"
     t.text "body"
     t.integer "ride_area", default: 0, null: false
+    t.decimal "score", precision: 5, scale: 3
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_posts_on_customer_id"

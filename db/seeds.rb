@@ -22,4 +22,3 @@ customer = Customer.new(:name => 'kana', :email => 'kana@gmail', :password => 'a
 customer.save!
 customer = Customer.new(:name => 'ken', :email => 'ken@gmail', :password => 'aaaaaa', :is_deleted => "false", :introduce => "名古屋に住んでます")
 customer.save!
-
