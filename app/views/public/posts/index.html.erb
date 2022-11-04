@@ -1,4 +1,14 @@
 <div class="container">
+  <%= form_with url: posts_search_path, method: :get do |f| %>
+      <%= f.label :温泉名検索 %>
+      <%= f.text_field :name %>
+      <%= f.submit "検索" %>
+  <% end %>
+  <%= form_with url: posts_search_path, method: :get do |f| %>
+      <%= f.label :都道府県検索 %>
+      <%=f.select :ride_area, Post.ride_areas.keys.to_a %>
+      <%= f.submit "検索" %>
+  <% end %>
   <div class="row justify-content-center">
     <div class="col-lg-9">
       <table class='table'>

@@ -2,11 +2,15 @@ class Public::PostCommentsController < ApplicationController
   
   def create
     @post = Post.find(params[:post_id])
-    @post_comment = @post.post_comments.build(post_comment_params)
+    @post_comments = @post.post_comments.order(created_at: :desc)
+    @post_comment = @post.post_comments.new(post_comment_params)
     @post_comment.customer_id = current_customer.id
-    @post_comment.save
-    @post_comments = @post.post_comments
+    if @post_comment.save
+      @post.create_notification_comment(current_customer, @post_comment.id)
     # render :index
+    else
+      redirect_back(fallback_location: root_path, notice: '投稿に失敗しました。')
+    end
   end
 
   def index

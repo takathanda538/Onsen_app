@@ -17,9 +17,9 @@ devise_scope :customer do
   post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
 end
 
-get "search" => "searches#search"
 namespace :admin do
     resources :orders, only:[:show,:update]
+    get 'customers/search'
     resources :customers, only:[:index,:show,:edit,:update]
     resources :genres, only:[:index,:create,:edit,:update]
     resources :items, except:[:destroy]
@@ -28,6 +28,7 @@ namespace :admin do
   end
 
   scope module: :public do
+    get 'posts/search'
     resources :posts do
       resources :post_comments, only: [:create, :destroy,:edit,:update]
       resource :likes, only: [:create, :destroy]
@@ -41,8 +42,11 @@ namespace :admin do
     end
     resources :messages, only: [:create]
     resources :rooms, only: [:create, :index, :show]
+    resources :notifications, only: [:index, :destroy]
     root to: 'homes#top'
     get 'about' => 'homes#about'
   end
+  
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

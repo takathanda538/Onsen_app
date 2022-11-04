@@ -1,6 +1,11 @@
 <div class="container">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-9">
+    <%= form_with url: admin_customers_search_path, method: :get do |f| %>
+          <%= f.label :顧客検索 %>
+          <%= f.text_field :name %>
+          <%= f.submit "検索" %>
+      <% end %>
       <table class="table">
         <thead>
           <tr>
@@ -32,4 +37,4 @@
       </table>
     </div>
   </div>
-</div>  
+</div>

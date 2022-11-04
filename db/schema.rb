@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_14_014159) do
+ActiveRecord::Schema.define(version: 2022_11_02_114620) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -94,6 +94,21 @@ ActiveRecord::Schema.define(version: 2022_10_14_014159) do
     t.index ["room_id"], name: "index_messages_on_room_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
+    t.integer "post_id"
+    t.integer "post_comment_id"
+    t.string "action", default: "", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_comment_id"], name: "index_notifications_on_post_comment_id"
+    t.index ["post_id"], name: "index_notifications_on_post_id"
+    t.index ["visited_id"], name: "index_notifications_on_visited_id"
+    t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
+  end
+
   create_table "post_comments", force: :cascade do |t|
     t.text "comment"
     t.integer "customer_id"
@@ -108,6 +123,7 @@ ActiveRecord::Schema.define(version: 2022_10_14_014159) do
     t.string "title"
     t.text "body"
     t.integer "ride_area", default: 0, null: false
+    t.decimal "score", precision: 5, scale: 3
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_posts_on_customer_id"
@@ -123,6 +139,13 @@ ActiveRecord::Schema.define(version: 2022_10_14_014159) do
   end
 
   create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.integer "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

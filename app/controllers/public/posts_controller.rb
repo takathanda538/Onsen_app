@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+
   def new
     @post = Post.new
   end
@@ -6,7 +7,14 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.customer_id = current_customer.id
+    @post.score = Language.get_data(post_params[:body])  #この行を追加
     if @post.save
+        @post.post_images.each do |image|
+          tags = Vision.get_image_data(image)    
+          tags.each do |tag|
+            @post.tags.create(name: tag)
+          end
+        end
       redirect_to post_path(@post), notice: "投稿に成功しました"
     else
       render 'new', notice: "投稿に失敗しました"
@@ -43,6 +51,13 @@ class Public::PostsController < ApplicationController
     redirect_to posts_path, notice: "投稿を消去しました"
   end
 
+  def search
+    if params[:name].present?
+      @results =Post.where("name LIKE ?", "%#{params[:name]}%").page(params[:page]).per(5).order('created_at DESC')
+    else
+      @results = Post.where(ride_area: params[:ride_area]).page(params[:page]).per(5).order('created_at DESC')
+    end
+  end
   private
 
   def post_params

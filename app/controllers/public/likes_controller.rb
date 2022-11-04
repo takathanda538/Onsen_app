@@ -6,6 +6,7 @@ class Public::LikesController < ApplicationController
     @post = Post.find(params[:post_id])
     like = current_customer.likes.new(post_id: @post.id)
     like.save
+    @post.create_notification_like(current_customer)
     render :toggle
   end
 
