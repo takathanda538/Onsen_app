@@ -4,9 +4,9 @@
     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarCollapse-2" aria-controls="navbarCollapse-2" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <% if customer_signed_in? %>
-      <div class="collapse navbar-collapse" id="navbarCollapse-2">
-        <ul class="navbar-nav ml-auto mr-sm-2 mt-2 mt-lg-0">
+    <div class="collapse navbar-collapse" id="navbarCollapse-2">
+      <ul class="navbar-nav ml-auto mr-sm-2 mt-2 mt-lg-0">
+        <% if customer_signed_in? %>
           <li class="nav-item">
             <%= link_to "マイページ" ,customer_path(current_customer), class: 'nav-link'%>
           </li>
@@ -26,26 +26,16 @@
             <%= link_to "DM",rooms_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to  "ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link' %>
+            <%= link_to  "ログアウト",destroy_customer_session_path, method: :delete, class: 'nav-link', data: { confirm: 'ログアウトしますか？' } %>
           </li>
-          <%= render 'searches/search' %>
-        </ul>
-      </div>
-    <% elsif admin_signed_in? %>
-      <div class="collapse navbar-collapse" id="navbarCollapse-2">
-        <ul class="navbar-nav ml-auto mr-sm-2 mt-2 mt-lg-0">
+        <% elsif admin_signed_in? %>
           <li class="nav-item">
             <%= link_to "会員一覧", admin_customers_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link' %>
+            <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link', data: { confirm: 'ログアウトしますか？' } %>
           </li>
-          <%= render 'searches/search' %>
-        </ul>
-      </div>
-    <% else %>
-      <div class="collapse navbar-collapse" id="navbarCollapse-2">
-        <ul class="navbar-nav ml-auto mr-sm-2 mt-2 mt-lg-0">
+        <% else %>
           <li class="nav-item">
             <%= link_to "Home",root_path, class: 'nav-link' %>
           </li>
@@ -58,8 +48,8 @@
           <li class="nav-item">
             <%= link_to "ログイン",new_customer_session_path, class: 'nav-link' %>
           </li>
-        </ul>
-      </div>
-    <% end %>
+        <% end %>
+      </ul>
+    </div>
   </nav>
 </header>
