@@ -5,7 +5,7 @@
           <div style="width: 500px;">
             <p><strong>Image</strong></p>
             <% @post.post_images.each do |image| %>
-              <%= image_tag image.variant(resize: "300", gravity: "center", crop: "240x240+0+0") %>
+              <%= image_tag image.variant(resize:'240x240').processed %>
             <% end %>
               <div class="tag-box">
                 <p>画像タグ一覧</p>
@@ -20,11 +20,17 @@
             <h5 class="card-title">
               <%= image_tag @post.customer.get_profile_image(50,50) ,class:  "rounded-circle" %>
               <%= link_to @post.customer.name ,customer_path(@post.customer)%><br>
+            <% if @post.score >= 0.3 %>
+              <i class="fa-regular fa-face-laugh-beam"></i>
+            <% elsif @post.score > -0.3 %>
+              <i class="fa-regular fa-face-rolling-eyes"></i>
+            <% else %>
+              <i class="fa-regular fa-face-sad-tear"></i>
+            <% end %>
               <%= @post.name %>(<%= @post.ride_area%>)
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">~~<%= @post.title %>~~</h6>
             <p class="card-text"><%= @post.body %></p>
-            <p class="sentiment-score">本文の感情分析スコア[<%= @post.score %>]</p>
             <% if @post.customer == current_customer || admin_signed_in? %>
                <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success"%>
                <%= link_to '消去', post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>

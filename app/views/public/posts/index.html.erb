@@ -15,8 +15,8 @@
         <thead>
           <tr>
             <th>投稿者</th>
-            <th>温泉</th>
-            <th>タイトル</th>
+            <th>温泉名</th>
+            <th>評価</th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -34,7 +34,15 @@
                   <%= post.name %>
                 <% end %>
               </td>
-              <td><%= post.title %></td>
+              <td>
+                <% if post.score >= 0.3 %>
+                  <i class="fa-regular fa-face-laugh-beam"></i>
+                <% elsif post.score > -0.3 %>
+                  <i class="fa-regular fa-face-rolling-eyes"></i>
+                <% else %>
+                  <i class="fa-regular fa-face-sad-tear"></i>
+                <% end %>
+              </td>
               <td><%= post.post_comments.count %>コメント</td>
               <td>
                 <%= render partial: "public/likes/like", locals: { post: post} %>

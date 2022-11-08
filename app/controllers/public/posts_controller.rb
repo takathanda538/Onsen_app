@@ -38,7 +38,15 @@ class Public::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    @post.score = Language.get_data(post_params[:body]) 
+    @post.tags.destroy_all
     if @post.update(post_params)
+      @post.post_images.each do |image|
+         tags = Vision.get_image_data(image)    
+         tags.each do |tag|
+           @post.tags.create(name: tag)
+         end
+       end
       redirect_to post_path(@post), notice: "投稿を編集しました"
     else
       render "edit"

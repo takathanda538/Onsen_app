@@ -33,7 +33,7 @@ namespace :admin do
       resources :post_comments, only: [:create, :destroy,:edit,:update]
       resource :likes, only: [:create, :destroy]
     end
-
+    get 'customers/search'
     resources :customers, only:[:show,:edit,:index,:update] do
       member do
         get :follows, :followers,:likes

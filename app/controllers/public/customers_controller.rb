@@ -67,6 +67,10 @@ class Public::CustomersController < ApplicationController
     @like_posts = Post.find(@likes)
   end
   
+  def search
+    @customers = Customer.where("name LIKE ?" , "%#{params[:name]}%")
+  end
+  
   private
 
   def customer_params
