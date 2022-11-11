@@ -10,21 +10,24 @@
       <div id = "relationship_<%= @customer.id %>">
       <%= render partial: "public/relationships/relationship", locals: { customer: @customer } %>
       </div>
-    
-      <% if customer_signed_in?%>    
-        <% unless @customer.id == current_customer.id %>
-          <% if @is_room == true %>
-            <%= link_to "ダイレクトメッセージ", room_path(@room_id) %>
-          <% else %>
-            <%= form_with model: @room , local: true do |f| %>
-              <%= fields_for @entry do |e| %>
-                <% e.hidden_field :customer_id, value: @customer.id%>
+      <div class="mt-3">
+        <% if customer_signed_in?%>    
+          <% unless @customer.id == current_customer.id %>
+            <% if @is_room == true %>
+              <%= link_to "ダイレクトメッセージ", room_path(@room_id) %>
+            <% else %>
+              <%= form_with model: @room , local: true do |f| %>
+                <%= fields_for @entry do |e| %>
+                  <% e.hidden_field :customer_id, value: @customer.id%>
+                <% end %>
+                <%= f.submit "チャットを始める", class: "btn-sm btn-success" %>
               <% end %>
-              <%= f.submit "チャットを始める" %>
             <% end %>
           <% end %>
         <% end %>
-      <% end %>
+      </div>
+      
+      
     </div>
   
     <div class="col-md-8 offset-lg-1">

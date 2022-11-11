@@ -13,6 +13,7 @@
             <th scope="col">氏名</th>
             <th scope="col">メールアドレス</th>
             <th scope="col">会員ステータス</th>
+              <th scope="col">評価</span </th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +32,14 @@
                   <p class="text-secondary font-weight-bold">退会</p>
                 <% end %>
             </td>
+            <td>
+    
+              <% if customer.bad_score? %>
+           　  　<div class="red-maru"></div>
+           　　<%else%>
+           　　 　<div class="green-maru"></div>
+           　　<%end%>
+             </td>
           </tr>
           <% end %>
         </tbody>
