@@ -62,5 +62,14 @@ class Customer < ApplicationRecord
       notification.save if notification.valid?
     end
   end
+    
+  def bad_score?
+    sum = posts.sum {|post| post.score.to_f}
+    if sum < -1
+      true
+    else
+      false
+    end
+  end
 
 end

@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row justfy-content-center">
-    <div class="col-8 text-center">
-      <h3>通知<small><%= link_to "通知全消去", notification_path(@notifications), method: :delete%></small></h3>
+    <div class="col-12 text-center">
+      <h3>通知</h3>
+      <small><%= link_to "通知を消去", notification_path(@notifications), method: :delete%></small>
+      
       
       <% if @notifications.present? %>
           <div class="users-index">
