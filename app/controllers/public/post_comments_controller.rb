@@ -1,4 +1,5 @@
 class Public::PostCommentsController < ApplicationController
+  before_action :authenticate_customer!
   
   def create
     @post = Post.find(params[:post_id])
@@ -12,13 +13,6 @@ class Public::PostCommentsController < ApplicationController
       redirect_back(fallback_location: root_path, notice: '投稿に失敗しました。')
     end
   end
-
-  def index
-  end
-
-  def show
-  end
-  
 
   def edit
     @post_comment = PostComment.find(params[:id])

@@ -1,5 +1,4 @@
 class Public::CustomersController < ApplicationController
-  
   before_action :set_customer, only: [:follows, :followers,:likes]
   before_action :ensure_guest_customer, only: [:edit]
   
