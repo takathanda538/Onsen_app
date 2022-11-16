@@ -18,12 +18,8 @@ devise_scope :customer do
 end
 
 namespace :admin do
-    resources :orders, only:[:show,:update]
     get 'customers/search'
     resources :customers, only:[:index,:show,:edit,:update]
-    resources :genres, only:[:index,:create,:edit,:update]
-    resources :items, except:[:destroy]
-    resources :order_details, only:[:update]
     root to: 'homes#top'
   end
 
