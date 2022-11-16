@@ -11,7 +11,7 @@ class Public::PostsController < ApplicationController
     @post.score = Language.get_data(post_params[:body])  #この行を追加
     if @post.save
         @post.post_images.each do |image|
-          tags = Vision.get_image_data(image)    
+          tags = Vision.get_image_data(image)
           tags.each do |tag|
             @post.tags.create(name: tag)
           end
@@ -35,15 +35,20 @@ class Public::PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    if @post.customer == current_customer
+      render "edit"
+    else
+      redirect_to posts_path
+    end
   end
 
   def update
     @post = Post.find(params[:id])
-    @post.score = Language.get_data(post_params[:body]) 
+    @post.score = Language.get_data(post_params[:body])
     @post.tags.destroy_all
     if @post.update(post_params)
       @post.post_images.each do |image|
-         tags = Vision.get_image_data(image)    
+         tags = Vision.get_image_data(image)
          tags.each do |tag|
            @post.tags.create(name: tag)
          end
@@ -62,11 +67,12 @@ class Public::PostsController < ApplicationController
 
   def search
     if params[:name].present?
-      @results =Post.where("name LIKE ?", "%#{params[:name]}%").page(params[:page]).per(5).order('created_at DESC')
+      @posts =Post.where("name LIKE ?", "%#{params[:name]}%").page(params[:page]).per(5).order('created_at DESC')
     else
-      @results = Post.where(ride_area: params[:ride_area]).page(params[:page]).per(5).order('created_at DESC')
+      @posts = Post.where(ride_area: params[:ride_area]).page(params[:page]).per(5).order('created_at DESC')
     end
   end
+  
   private
 
   def post_params

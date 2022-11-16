@@ -1,41 +1,16 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-9">
-      <table class='table'>
-        <thead>
-          <tr>
-            <th>投稿者</th>
-            <th>温泉</th>
-            <th>タイトル</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @results.each do |post| %>
-            <tr>
-              <td>
-                <%= link_to customer_path(post.customer) do%>
-                  <%= image_tag post.customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %><br>
-                  <%= post.customer.name %>
-                <% end %>
-              </td>
-              <td>
-                <%= link_to post_path(post) do%>
-                  <%= post.name %>
-                <% end %>
-              </td>
-              <td><%= post.title %></td>
-              <td><%= post.post_comments.count %>コメント</td>
-              <td>
-                <%= render partial: "public/likes/like", locals: { post: post} %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-
+      <div class="text-center h3">
+        <% if params[:name].present?%>
+          <div><%= params[:name]%>の検索結果</div>
+        <% else %>
+          <div><%= params[:ride_area]%>の温泉 検索結果</div>
+        <% end %>
+      </div>
+        <%= render "index",posts: @posts%>
       <ul class="pagination justify-content-center">
-      <%= paginate @results, theme: 'bootstrap-5' %>
+      <%= paginate @posts, theme: 'bootstrap-5' %>
       </ul>
 
     </div>

@@ -3,7 +3,7 @@
       <div class="col-lg-6">
         <% if @post.post_images.attached? %>
           <div style="width: 500px;">
-            <p><strong>Image</strong></p>
+            <p><strong>投稿画像</strong></p>
             <% @post.post_images.each do |image| %>
               <%= image_tag image.variant(resize:'240x240').processed %>
             <% end %>
@@ -25,9 +25,15 @@
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">~~<%= @post.title %>~~</h6>
             <p class="card-text"><%= @post.body %></p>
+            <div class="text-right">
+              <%= render partial: "public/likes/like", locals: { post: @post} %>
+            </div>
+            <p class="text-right"><small>投稿日<%= l @post.created_at %></small></p>
             <% if @post.customer == current_customer || admin_signed_in? %>
+            <div class="text-right">
                <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success"%>
                <%= link_to '消去', post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+            </div>
              <% end %>
           </div>
         </div>
