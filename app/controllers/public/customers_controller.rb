@@ -52,13 +52,13 @@ class Public::CustomersController < ApplicationController
   end
   
   def follows
-    customer = Customer.find(params[:id])
-    @customers = customer.following_customer
+    @customer = Customer.find(params[:id])
+    @customers = @customer.following_customer
   end
   
   def followers
-    customer = Customer.find(params[:id])
-    @customers = customer.follower_customer
+    @customer = Customer.find(params[:id])
+    @customers = @customer.follower_customer
   end
   
   def likes

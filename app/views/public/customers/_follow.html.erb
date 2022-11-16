@@ -7,13 +7,9 @@
       <% end %>
     </td>
     <td>
-      <% if customer_signed_in? && current_customer != customer %>
-        <% if current_customer.following?(customer) %>
-          <%= link_to 'フォロー外す', customer_relationships_path(customer.id), method: :delete, remote: true, class: "btn-sm btn-danger" %>
-        <% else %>
-           <%= link_to 'フォローする', customer_relationships_path(customer.id), method: :POST, remote: true, class:"btn-sm btn-success" %>
-        <% end %>
-      <% end %>
+      <div id = "relationship_<%= customer.id %>">
+        <%= render partial: "public/relationships/relationship", locals: { customer: customer } %>
+      </div>
     </td>
   </tr>
 <% end %>

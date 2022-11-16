@@ -22,10 +22,10 @@
           <td>会員ステータス</td>
           <td class="form-inline", style="font-size : 20px;">
             <div class="form-check form-check-inline">
-              <%= f.radio_button :is_deleted, 'false' %><%= f.label :is_deleted, '有効' %>
+              <%= f.radio_button :is_deleted, 'false' %><%= f.label :is_deleted, '有効', value: false %>
             </div>
             <div class="form-check form-check-inline">
-              　<%= f.radio_button :is_deleted, 'true' %><%= f.label :is_deleted, '退会' %>
+              　<%= f.radio_button :is_deleted, 'true' %><%= f.label :is_deleted, '退会', value: true %>
             </div>
           </td>
           <td></td>
