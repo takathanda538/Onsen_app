@@ -23,11 +23,12 @@ customer4.save!
 customer5 = Customer.new(:name => 'ken', :email => 'ken@gmail', :password => 'aaaaaa', :is_deleted => "false", :introduce => "名古屋に住んでます")
 customer5.save!
 
-post = customer1.posts.create(:name =>"三笠の湯", :title =>"最高", :body => "こんなに最高", :ride_area =>1)
-post = customer1.posts.create(:name =>"いちの湯", :title =>"最高の思い出", :body => "露天風呂が広くて最高", :ride_area =>12)
-post = customer1.posts.create(:name =>"万座温泉", :title =>"もう行かなくていいや", :body => "正直あまり宜しくはなかった。休憩所が無いのがきつかった", :ride_area =>18)
-post = customer1.posts.create(:name =>"立花の湯", :title =>"夕日の思い出", :body => "こんなに最高", :ride_area =>3)
-post = customer1.posts.create(:name =>"蛍温泉", :title =>"彼女と言ってきたよ", :body => "こんなに最高", :ride_area =>1)
+Post.create!(customer_id: 1, :name =>"三笠の湯", :title =>"最高", :body => "こんなに最高", :ride_area =>1,:score => 1)
+Post.create!(customer_id: 1, :name =>"いちの湯", :title =>"最高の思い出", :body => "露天風呂が広くて最高", :ride_area =>12,:score => 1)
+Post.create!(customer_id: 1, :name =>"万座温泉", :title =>"もう行かなくていいや", :body => "正直あまり宜しくはなかった。休憩所が無いのがきつかった", :ride_area =>18,:score => -1)
+Post.create!(customer_id: 1, :name =>"立花の湯", :title =>"夕日の思い出", :body => "こんなに最高", :ride_area =>3,:score => 1)
+Post.create!(customer_id: 1, :name =>"蛍温泉", :title =>"彼女と言ってきたよ", :body => "こんなに最高", :ride_area =>1,:score => 1)
+
 
 relationship = Relationship.create(:following_id => customer1.id, :follower_id => customer2.id)
 relationship = Relationship.create(:following_id => customer2.id, :follower_id => customer3.id)

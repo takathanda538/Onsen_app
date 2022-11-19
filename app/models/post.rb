@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: { minimum: 1, maximum: 180 }
   validates :body, presence: true, length: { minimum: 1, maximum: 450 }
 
-  belongs_to :customer
+  belongs_to :customer, optional: true
 
   has_many :post_comments, dependent: :destroy
   has_many :likes, dependent: :destroy
