@@ -24,7 +24,7 @@ class Public::PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.page(params[:page]).per(5).order(created_at: :desc)
+    @posts = Post.page(params[:page]).per(20).order(created_at: :desc)
   end
 
   def show
