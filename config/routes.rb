@@ -25,6 +25,7 @@ namespace :admin do
 
   scope module: :public do
     get 'posts/search'
+    get 'posts/following_post'
     resources :posts do
       resources :post_comments, only: [:create, :destroy,:edit,:update]
       resource :likes, only: [:create, :destroy]

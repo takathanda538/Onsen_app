@@ -15,23 +15,6 @@ class Post < ApplicationRecord
 
   has_many_attached :post_images
 
-  def self.looks(search, word)
-    labels = Post.ride_areas.keys.grep(/#{word}/)
-    values = labels.map(&Post.ride_areas)
-    if search == "perfect_match"
-      other_posts = Post.where("name LIKE ? OR title LIKE ? OR body LIKE?","#{word}", "#{word}", "#{word}")
-    elsif search == "forward_match"
-      other_posts = Post.where("name LIKE ? OR title LIKE ? OR body LIKE?","#{word}%", "#{word}%", "#{word}%")
-    elsif search == "backward_match"
-      other_posts = Post.where("name LIKE ? OR title LIKE ? OR body LIKE?","%#{word}", "%#{word}", "%#{word}")
-    elsif search == "partial_match"
-      ride_area_posts = Post.where('ride_area IN (?)', values)
-      other_posts = Post.where("name LIKE ? OR title LIKE ? OR body LIKE?","%#{word}%", "%#{word}%", "%#{word}%")
-      @post = ride_area_posts | other_posts
-    else
-      @post = Post.all
-    end
-  end
 
   def liked_by?(customer)
     likes.exists?(customer_id: customer.id)

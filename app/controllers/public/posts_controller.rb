@@ -73,6 +73,11 @@ class Public::PostsController < ApplicationController
     end
   end
   
+  def following_post
+    @customers = current_customer.following_customer
+    @posts = Post.page(params[:page]).per(20).order(created_at: :desc)
+  end
+  
   private
 
   def post_params
