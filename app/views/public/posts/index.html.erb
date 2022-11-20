@@ -11,6 +11,7 @@
   <% end %>
   <div class="row justify-content-center">
     <div class="col-lg-9">
+  <%= link_to "フォロユーザー投稿一覧",posts_following_post_path %>
       <%= render "index", posts: @posts %>
       <ul class="pagination justify-content-center">
         <%= paginate @posts, theme: 'bootstrap-5' %>
