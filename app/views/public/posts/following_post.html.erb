@@ -9,55 +9,15 @@
       <%=f.select :ride_area, Post.ride_areas.keys.to_a %>
       <%= f.submit "検索" %>
   <% end %>
-  <div class="row justify-content-center">
+  <div>表示
+    <%= select_tag 'name', options_for_select({"フォローユーザーのみ": posts_following_post_path,
+                                                "全ユーザー": posts_path}), 
+                                                include_blank: false,
+                                                onchange: 'location.href=value;' %>
+  </div>
+    <div class="row justify-content-center">
     <div class="col-lg-9">
-    <%= link_to "全ユーザー投稿一覧",posts_path %>
-      <table class='table table-hover table-inverse'>
-        <thead>
-          <tr>
-            <th>投稿者</th>
-            <th>投稿日</th>
-            <th>温泉名</th>
-            <th>評価</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @customers.each do |customer| %>
-            <% customer.posts.each do |post| %>
-                <tr>
-                  <td>
-                    <%= link_to customer_path(post.customer) do%>
-                      <%= image_tag post.customer.get_profile_image(50,50) , class: "rounded-circle", size: "50x50" %><br>
-                      <%= post.customer.name %>
-                    <% end %>
-                  </td>
-                  <td>
-                    <%= l post.created_at, format: :short %>
-                  </td>
-                  <td>
-                    <%= link_to post_path(post) do%>
-                      <%= post.name %>
-                    <% end %>
-                  </td>
-                  <td>
-                    <% if post.score >= 0.3 %>
-                      <i class="fa-regular fa-face-laugh-beam"></i>
-                    <% elsif post.score > -0.3 %>
-                      <i class="fa-regular fa-face-rolling-eyes"></i>
-                    <% else %>
-                      <i class="fa-regular fa-face-sad-tear"></i>
-                    <% end %>
-                  </td>
-                  <td><%= post.post_comments.count %>コメント</td>
-                  <td>
-                    <%= render partial: "public/likes/like", locals: { post: post} %>
-                  </td>
-                </tr>
-              <% end %>
-            <% end %>
-        </tbody>
-      </table>
+      <%= render "index", posts: @posts %>
       <ul class="pagination justify-content-center">
         <%= paginate @posts, theme: 'bootstrap-5' %>
       </ul>
