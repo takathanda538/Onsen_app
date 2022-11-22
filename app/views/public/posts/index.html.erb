@@ -9,9 +9,14 @@
       <%=f.select :ride_area, Post.ride_areas.keys.to_a %>
       <%= f.submit "検索" %>
   <% end %>
+  <div>表示
+    <%= select_tag 'name', options_for_select({"全ユーザー": posts_path,
+                                                "フォローユーザーのみ": posts_following_post_path}), 
+                                                include_blank: false,
+                                                onchange: 'location.href=value;' %>
+  </div>
   <div class="row justify-content-center">
     <div class="col-lg-9">
-  <%= link_to "フォロユーザー投稿一覧",posts_following_post_path %>
       <%= render "index", posts: @posts %>
       <ul class="pagination justify-content-center">
         <%= paginate @posts, theme: 'bootstrap-5' %>

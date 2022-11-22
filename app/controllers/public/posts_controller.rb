@@ -74,8 +74,8 @@ class Public::PostsController < ApplicationController
   end
   
   def following_post
-    @customers = current_customer.following_customer
-    @posts = Post.page(params[:page]).per(20).order(created_at: :desc)
+    @customers = current_customer.following_customer.pluck(:id)
+    @posts = Post.where(customer_id: @customers).page(params[:page]).per(20).order(created_at: :desc)
   end
   
   private
