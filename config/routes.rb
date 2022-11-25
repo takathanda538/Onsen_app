@@ -20,6 +20,7 @@ end
 namespace :admin do
     get 'customers/search'
     resources :customers, only:[:index,:show,:edit,:update]
+    resources :posts, except:[:new,:create]
     root to: 'homes#top'
   end
 

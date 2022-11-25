@@ -1,2 +1,51 @@
-<%= @post.title %>
-<%= @post.name%>
+<div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <% if @post.post_images.attached? %>
+          <div style="width: 500px;">
+            <p><strong>投稿画像</strong></p>
+            <% @post.post_images.each do |image| %>
+              <%= image_tag image.variant(resize:'240x240').processed %>
+            <% end %>
+          </div>
+        <% end %>
+        <div　style="width: 25rem;">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= image_tag @post.customer.get_profile_image(50,50) ,class:  "rounded-circle" %>
+              <%= link_to @post.customer.name ,admin_customer_path(@post.customer)%><br>
+            <% if @post.score >= 0.3 %>
+              <i class="fa-regular fa-face-laugh-beam"></i>
+            <% elsif @post.score > -0.3 %>
+              <i class="fa-regular fa-face-rolling-eyes"></i>
+            <% else %>
+              <i class="fa-regular fa-face-sad-tear"></i>
+            <% end %>
+              <%= @post.name %>(<%= @post.ride_area%>)
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">~~<%= @post.title %>~~</h6>
+            <p class="card-text"><%= @post.body %></p>
+            <p class="text-right"><small>投稿日<%= l @post.created_at %></small></p>
+            <% if admin_signed_in? %>
+            <div class="text-right">
+               <%= link_to '編集', edit_admin_post_path(@post), class: "btn btn-sm btn-success"%>
+               <%= link_to '消去', admin_post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+            </div>
+             <% end %>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <% if customer_signed_in? %>
+          <div id="comments_form">
+            <%= render partial: 'public/post_comments/form', locals:{ post: @post, post_comment: @post_comment } %>
+          </div>
+          <% end %>
+          <h3>コメント一覧</h3>
+          <div id="comments_area">
+            <%= render partial: 'public/post_comments/index', locals:{post: @post,post_comments: @post_comments } %>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
