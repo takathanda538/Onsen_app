@@ -1,6 +1,6 @@
 <div class="container">  
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <h4>
         <%=link_to @customer.name, customer_path(@customer) %>さんの会員詳細
       </h4>
@@ -31,6 +31,9 @@
            <td><%= link_to "編集する",edit_admin_customer_path(@customer), class:"btn btn-outline-secondary" %></td>
          </tr>
       </table>
+    </div>
+    <div class="col-md-6">
+      <%= render 'admin/posts/index', posts: @posts %>
     </div>
   </div>
 </div>
