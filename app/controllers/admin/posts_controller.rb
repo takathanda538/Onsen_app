@@ -7,7 +7,7 @@ class Admin::PostsController < ApplicationController
   end
   
   def index
-    @posts = Post.all
+    @posts = Post.all.order(id: "DESC")
   end
   
   def edit

@@ -3,12 +3,12 @@ class Admin::CustomersController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @customers = Customer.all
+    @customers = Customer.all.order(id: "DESC")
   end
 
   def show
     @customer = Customer.find(params[:id])
-    @posts = @customer.posts
+    @posts = @customer.posts.order(id: "DESC")
   end
 
   def edit
