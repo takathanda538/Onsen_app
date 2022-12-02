@@ -15,4 +15,9 @@ module Public::NotificationsHelper
       tag.a(@visitor.name, href: customer_path(@visitor)) + 'が' + tag.a("#{@post_title}", href: post_path(notification.post_id)) + 'にコメントしました'
     end
   end
+  
+  def unchecked_notifications
+    @notifications = current_customer.passive_notifications.where(checked: false)
+  end
+  
 end

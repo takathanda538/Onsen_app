@@ -34,3 +34,13 @@
 .card {
   background-color: lavender;
 }
+
+.nav-item{
+  position: relative;
+}
+
+.text-danger{
+  position: absolute;
+  top: 18px;
+  left: 35px;
+}
